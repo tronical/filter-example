@@ -1,16 +1,25 @@
-import { Button, VerticalBox } from "std-widgets.slint";
+import { Button, VerticalBox, LineEdit, ListView } from "std-widgets.slint";
 
 export AppWindow := Window {
-    property<int> counter: 42;
-    callback request-increase-value();
+    preferred-width: 800px;
+    preferred-height: 600px;
+    property<[string]> all_objects: [
+        "Tower", "Candle", "Car", "Airplane"
+    ];
+    property<[string]> objects: all_objects;
+    callback update-filter(string);
     VerticalBox { 
-        Text {
-            text: "Counter: \{counter}";
+        filter-edit := LineEdit {
+            placeholder-text: "Enter text to filter and press enter to activate.";
+            accepted => { root.update-filter(self.text); }
         }
-        Button {
-            text: "Increase value";
-            clicked => { 
-                request-increase-value();
+        ListView {
+            for name in objects: Text {
+                text: name;
+                Rectangle {
+                    border-width: 1px;
+                    border-color: black;
+                }
             }
         }
      }

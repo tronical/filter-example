@@ -41,7 +41,6 @@ private:
             return true;
         }
         if (auto source = m_source_model->row_data(i)) {
-            std::cerr << "checking row " << i << " text " << *source;
             return source->starts_with(m_filter);
         } else {
             return false;
